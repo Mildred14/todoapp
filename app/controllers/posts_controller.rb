@@ -5,6 +5,15 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
+    @posts_done_homework = Post.where(done_homework: true, user_id: current_user.id) 
+    @posts_pending_homework =  Post.where(done_homework: false, user_id: current_user.id) 
+
+    respond_to do |format|
+
+      format.html
+      format.csv { send_data @posts&.to_csv, filename: "todo_list_#{Date.today}.csv" }
+    end
+
   end
 
   # GET /posts/1
@@ -24,7 +33,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @post.save
@@ -69,6 +78,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :done_homework)
     end
 end
