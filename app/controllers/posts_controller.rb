@@ -5,8 +5,8 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
-    @posts_done_homework = Post.where(done_homework: true, user_id: current_user.id) 
-    @posts_pending_homework =  Post.where(done_homework: false, user_id: current_user.id) 
+    @posts_done_homework = Post.where(done_homework: true, user_id: current_user) 
+    @posts_pending_homework =  Post.where(done_homework: false, user_id: current_user) 
 
     respond_to do |format|
 

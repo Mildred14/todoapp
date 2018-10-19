@@ -1,6 +1,6 @@
 require 'csv'
-
 class Post < ApplicationRecord
+  belongs_to :user
     def self.to_csv
         attributes = %w{title body done_homework}
     
