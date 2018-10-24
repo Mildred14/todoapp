@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_233104) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.references :user, index: true
     t.boolean "done_homework"
   end
 

@@ -5,13 +5,19 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
-    @posts_done_homework = Post.where(done_homework: true, user_id: current_user) 
-    @posts_pending_homework =  Post.where(done_homework: false, user_id: current_user) 
-
+    @posts_done_homework = current_user.posts.done
+    @posts_pending_homework =  current_user.posts.pending
+    
     respond_to do |format|
-
       format.html
-      format.csv { send_data @posts&.to_csv, filename: "todo_list_#{Date.today}.csv" }
+      format.pdf do
+        pdf = PostsPdf.new(@posts)
+        send_data pdf.render, 
+        filename: "List_#{Date.today}.pdf",
+        type: "application/pdf",
+        disposition: "inline"
+      end
+      format.csv { send_data @posts&.to_csv, filename: "List_#{Date.today}.csv" }
     end
 
   end
@@ -19,7 +25,8 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-  end
+
+end
 
   # GET /posts/new
   def new
