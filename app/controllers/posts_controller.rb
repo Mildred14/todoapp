@@ -13,20 +13,19 @@ class PostsController < ApplicationController
       format.pdf do
         pdf = PostsPdf.new(@posts)
         send_data pdf.render, 
-        filename: "List_#{Date.today}.pdf",
-        type: "application/pdf",
-        disposition: "inline"
+          filename: "List_#{Date.today}.pdf",
+          type: "application/pdf",
+          disposition: "inline"
       end
-      format.csv { send_data @posts&.to_csv, filename: "List_#{Date.today}.csv" }
+      format.csv { send_data @posts&.to_csv, filename: "List_#{Date.today}.csv" 
     end
-
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
 
-end
+  end
 
   # GET /posts/new
   def new
