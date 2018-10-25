@@ -2,8 +2,8 @@ require 'prawn'
 class PostsPdf < Prawn::Document
     def initialize(post)
         super()
-    @post=post
-      draw_table
+            @post=post
+            draw_table
     end
 
     def draw_table
@@ -11,9 +11,9 @@ class PostsPdf < Prawn::Document
     end
 
     def line_items_rows
-         [["Title", "Body", "Done_homework"]]+
-         @post.map do |posts|
-             [posts.title, posts.body, "#{posts.done_homework}"]
+        [["Title", "Body", "Done_homework"]]+
+        @post.map do |posts|
+            [posts.title, posts.body, "#{posts.done_homework}"]
         end
     end
 end
