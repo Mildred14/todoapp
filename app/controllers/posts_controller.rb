@@ -5,11 +5,26 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
+    @posts_done_homework = current_user.posts.done
+    @posts_pending_homework =  current_user.posts.pending
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PostsPdf.new(@posts)
+        send_data pdf.render, 
+          filename: "List_#{Date.today}.pdf",
+          type: "application/pdf",
+          disposition: "inline"
+      end
+      format.csv { send_data @posts&.to_csv, filename: "List_#{Date.today}.csv" 
+    end
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+
   end
 
   # GET /posts/new
@@ -24,7 +39,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @post.save
@@ -69,6 +84,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :done_homework)
     end
 end
