@@ -17,7 +17,7 @@ class PostsController < ApplicationController
           type: "application/pdf",
           disposition: "inline"
       end
-      format.csv { send_data @posts&.to_csv, filename: "List_#{Date.today}.csv" 
+      format.csv { send_data @posts&.to_csv, filename: "List_#{Date.today}.csv" }
     end
   end
 
