@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p><%= link_to 'Generate Report CSV', posts_path(format: 'csv') %></p>
-
+<% if user_signed_in? %>
+  <% current_user.avatar.attached? %>
+  <%= image_tag current_user.avatar, {size: "200x200"} %>
+<% end %>
 <h1> Tareas Hechas</h1>
-
 <table>
   <thead>
     <tr>
