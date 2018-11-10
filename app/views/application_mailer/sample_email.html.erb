@@ -8,5 +8,8 @@
     <p>
       Sample mail sent using smtp.
     </p>
+    <% @user.posts.each do |user_post| %>
+    <p><%= user_post.body  %></p>
+    <% end %>
   </body>
 </html>
