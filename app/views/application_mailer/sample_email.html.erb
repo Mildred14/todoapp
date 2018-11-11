@@ -9,7 +9,9 @@
       Sample mail sent using smtp.
     </p>
     <% @user.posts.each do |user_post| %>
-    <p><%= user_post.body  %></p>
+      <% unleass user_post.done_homework %>
+        <p><%= user_post.body  %></p>
+      <%end%>
     <% end %>
   </body>
 </html>

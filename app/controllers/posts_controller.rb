@@ -4,7 +4,6 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    WeeklyEmail.perform_later
     @posts = Post.all
     @posts_done_homework = current_user.posts.done
     @posts_pending_homework =  current_user.posts.pending
