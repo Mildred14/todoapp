@@ -6,12 +6,10 @@
   <body>
     <h1>Hi <%= @user.email %></h1>
     <p>
-      Sample mail sent using smtp.
+      <b>PENDING TASKS</b>
     </p>
-    <% @user.posts.each do |user_post| %>
-      <% unleass user_post.done_homework %>
+    <% @user.posts.where(done_homework: false).each do |user_post| %>
         <p><%= user_post.body  %></p>
-      <%end%>
     <% end %>
   </body>
 </html>
