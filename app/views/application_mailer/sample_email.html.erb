@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi user <%= @user.id %> <%= @user.email %></h1>
+    <p>
+      <b>PENDING TASKS</b>
+    </p>
+    <% @user.posts.where(done_homework: false).each do |user_post| %>
+        <ul>
+        <li><%= user_post.body  %></li>
+        </ul>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+weekly_email:
+  cron: '* * * * *'
+  class: 'WeeklyEmail'
+  queue: default
